@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+}
+
+header nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+section {
+    margin: 50px 0;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.project{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
