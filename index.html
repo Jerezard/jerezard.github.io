@@ -9,15 +9,31 @@
 </head>
 <body>
     <header>
-        <h1>Jeremy Sithole</h1>
-        <h2>Portfolio</h2>
         <nav id="desktop-nav">
+            <div class="title">Jeremy's Portfolio</div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+        </nav>
+        <nav id="hamburger-nav">
+            <div class="hamburger-menu">
+                <div class="hamburger-icon" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="menu-links" id="mobileMenu">
+                    <ul>
+                        <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                        <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+                        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+                        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -70,5 +86,24 @@
     <footer>
         <p>&copy; 2025 Jeremy Sithole</p>
     </footer>
+
+        <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.menu-links');
+            const icon = document.querySelector('.hamburger-icon');
+            if (!menu || !icon) return;
+            menu.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+
+        document.addEventListener('click', (e) => {
+            const menu = document.querySelector('.menu-links');
+            const icon = document.querySelector('.hamburger-icon');
+            if (!menu || !icon) return;
+            if (menu.contains(e.target) || icon.contains(e.target)) return;
+            menu.classList.remove('open');
+            icon.classList.remove('open');
+        });
+    </script>
 </body>
 </html>
