@@ -38,3 +38,40 @@ h2 {
     margin-bottom: 20px;
     border-radius: 5px;
 }
+
+.skills-list{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 220px));
+    row-gap: 8px;
+    column-gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: start;
+}
+
+.skills-list li{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: transparent; /* change if you want a card look */
+}
+.skills-list li i {
+    font-size: 26px;
+    width: 30px;
+    text-align: center;
+}
+
+.skills-list li:hover i {
+    transform: translateY(-3px);
+    opacity: 1;
+}
+
+@media (max-width: 900px){
+    .skills-list{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 600px){
+    .skills-list{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
