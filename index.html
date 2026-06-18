@@ -63,17 +63,28 @@
     </section>
 
     <section id="projects">
-        <h2>Projects</h2>
-        <div class="project">
+        <p class="section_text_p1">View My Recent Projects</p>
+        <h1 class="title"> Projects </h1>
+        <div class="project" data-images="images/co2-1.png,images/co2-2.png,images/co2-3.png">
             <h3>Data Visualization of CO2 emissions</h3>
                 <p>Created a dashboard to visualize and compare CO2 emissions between different countries</p>
-                <p>View Project <a href=""></a> </p>
+                <div class="project-actions">
+                    <button class="view-btn" data-images="images/co2-1.png,images/co2-2.png,images/co2-3.png">View Project</button>
+                    <button class ="github-btn" onclick="location.href='https://github.com/ImDXx/IE500417-Group-15'">
+                        GitHub
+                    </button>
+                </div>
         </div>
 
-        <div class="project">
+        <div class="project" data-images="images/image1.png, images/image2.png, images/image3.png, images/image4.png,">
             <h3>Marketplace Mobile Application</h3>
                 <p>Developed a Maketplace application using React Native and Expo with Firebase for database features and user authentication</p>
-                <p>View Project <a href=""></a> </p>
+                <div class="project-actions">
+                    <button class="view-btn" data-images="images/image1.png, images/image2.png, images/image3.png, images/image4.png,">View Project</button>
+                    <button class ="github-btn" onclick="location.href='https://github.com/viljarh/marketplace-project'">
+                        GitHub
+                    </button>
+                </div>
         </div>
     </section>
 
@@ -87,7 +98,16 @@
         <p>&copy; 2025 Jeremy Sithole</p>
     </footer>
 
-        <script>
+    <div class="modal" id="projectModal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close gallery">&times;</button>
+            <button class="modal-nav prev" aria-label="Previous image">&#10094;</button>
+            <img id="modalImage" src="" alt="Project screenshot">
+            <button class="modal-nav next" aria-label="Next image">&#10095;</button>
+        </div>
+    </div>
+
+    <script>
         function toggleMenu() {
             const menu = document.querySelector('.menu-links');
             const icon = document.querySelector('.hamburger-icon');
@@ -103,6 +123,74 @@
             if (menu.contains(e.target) || icon.contains(e.target)) return;
             menu.classList.remove('open');
             icon.classList.remove('open');
+        });
+
+        const modal = document.getElementById('projectModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeBtn = document.querySelector('.modal-close');
+        const prevBtn = document.querySelector('.modal-nav.prev');
+        const nextBtn = document.querySelector('.modal-nav.next');
+        let currentImages = [];
+        let currentIndex = 0;
+
+        function openProjectGallery(button) {
+            const rawImages = button.dataset.images || '';
+            currentImages = rawImages
+                .split(',')
+                .map((img) => img.trim())
+                .filter(Boolean);
+
+            if (!currentImages.length) return;
+
+            currentIndex = 0;
+            modalImage.src = currentImages[0];
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+        }
+
+        function updateGalleryImage() {
+            if (!currentImages.length) return;
+            currentIndex = (currentIndex + currentImages.length) % currentImages.length;
+            modalImage.src = currentImages[currentIndex];
+        }
+
+        document.querySelectorAll('.view-btn').forEach((button) => {
+            button.addEventListener('click', () => openProjectGallery(button));
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            updateGalleryImage();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            updateGalleryImage();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeBtn.click();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) {
+                closeBtn.click();
+            } else if (e.key === 'ArrowLeft' && modal.classList.contains('open')) {
+                currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+                updateGalleryImage();
+            } else if (e.key === 'ArrowRight' && modal.classList.contains('open')) {
+                currentIndex = (currentIndex + 1) % currentImages.length;
+                updateGalleryImage();
+            }
         });
     </script>
 </body>
